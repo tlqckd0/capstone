@@ -1,1 +1,6 @@
+# module
+
 node_modules 
+
+# api key
+server/src/config

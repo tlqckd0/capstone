@@ -1,0 +1,82 @@
+[
+    {
+        "name": "천안IC",
+        "length": 8.2
+    },
+    {
+        "name": "북천안IC",
+        "length": 5.4
+    },
+    {
+        "name": "입장휴게소 ",
+        "length": 6.6
+    },
+    {
+        "name": "안성IC ",
+        "length": 4.9
+    },
+    {
+        "name": "안성JC",
+        "length": 4.8
+    },
+    {
+        "name": "안성휴게소",
+        "length": 8.4
+    },
+    {
+        "name": "오산IC",
+        "length": 4.3
+    },
+    {
+        "name": "동탄JC",
+        "length": 4.1
+    },
+    {
+        "name": "기흥동탄IC",
+        "length": 0.7
+    },
+    {
+        "name": "기흥IC",
+        "length": 5.1
+    },
+    {
+        "name": "수원신갈IC",
+        "length": 2.9
+    },
+    {
+        "name": "신갈JC",
+        "length": 4.5
+    },
+    {
+        "name": "죽전휴게소",
+        "length": 3.2
+    },
+    {
+        "name": "서울T/G",
+        "length": 3.4
+    },
+    {
+        "name": "판교IC",
+        "length": 0.8
+    },
+    {
+        "name": "판교JC",
+        "length": 5.3
+    },
+    {
+        "name": "달래네고개",
+        "length": 3.5
+    },
+    {
+        "name": "양재IC",
+        "length": 2.5
+    },
+    {
+        "name": "서초IC",
+        "length": 2.3
+    },
+    {
+        "name": "반포IC",
+        "length": 1.7
+    }
+]
