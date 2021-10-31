@@ -11,6 +11,7 @@ import styled from 'styled-components';
 const Styles = styled.div`
     .roadSelector {
         padding: 5px;
+        display :inline-block;
     }
 `;
 const ChooseRoadLength = ({ handleRoadSelect }) => {

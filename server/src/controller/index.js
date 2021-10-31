@@ -17,4 +17,5 @@ router.get('/risk/:road_name',async(req,res)=>{
     res.json(road_risk_weather);
 })
 
+
 module.exports = router;
