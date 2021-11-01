@@ -25,24 +25,19 @@ const ChooseTimeWindow = ({ handleTimeWindow }) => {
                 <FormLabel component="legend">시간 옵션</FormLabel>
                 <RadioGroup
                     aria-label="time-window"
-                    defaultValue="24"
+                    defaultValue="12"
                     name="radio-buttons-group"
                     onChange={handleTimeWindow}
                 >
                     <FormControlLabel
-                        value="24"
+                        value="12"
                         control={<Radio />}
-                        label="24 시간"
+                        label="12 시간"
                     />
                     <FormControlLabel
-                        value="8"
+                        value="6"
                         control={<Radio />}
-                        label="8 시간"
-                    />
-                    <FormControlLabel
-                        value="4"
-                        control={<Radio />}
-                        label="4 시간"
+                        label="6 시간"
                     />
                 </RadioGroup>
             </FormControl>

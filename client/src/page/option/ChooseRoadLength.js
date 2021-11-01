@@ -25,7 +25,7 @@ const ChooseRoadLength = ({ handleRoadSelect }) => {
                 <FormLabel component="legend">도로 길이 옵션</FormLabel>
                 <RadioGroup
                     aria-label="road-length"
-                    defaultValue="false"
+                    defaultValue="true"
                     name="radio-buttons-group"
                     onChange={handleRoadSelect}
                 >
@@ -36,6 +36,7 @@ const ChooseRoadLength = ({ handleRoadSelect }) => {
                     />
                     <FormControlLabel
                         value="false"
+                        disabled
                         control={<Radio />}
                         label="도로 길이 제외"
                     />

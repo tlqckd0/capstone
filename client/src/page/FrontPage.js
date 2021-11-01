@@ -2,9 +2,10 @@ import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
 import ChooseRoadLength from './option/ChooseRoadLength';
 import ChooseTimeWindow from './option/ChooseTimeWindow';
+import RoadRiskPage from './RoadRiskPage';
 
 import styled from 'styled-components';
-import {get} from 'axios';
+import { get } from 'axios';
 const Styles = styled.div`
     .optionSelector {
         display: block;
@@ -26,8 +27,8 @@ const Styles = styled.div`
 
 const FrontPage = () => {
     const [optionList, setOptionList] = useState([]);
-    const [timeWindow, setTimeWindow] = useState(24);
-    const [lengthSelect, setLengthSelect] = useState('false');
+    const [timeWindow, setTimeWindow] = useState(12);
+    const [lengthSelect, setLengthSelect] = useState('true');
     const [dataList, setDataList] = useState([]);
 
     const handleTimeWindow = (e) => {
@@ -47,8 +48,13 @@ const FrontPage = () => {
         );
 
         if (idx === -1) {
-            const riskData = await get(`api/risk2/${'경부'}/${timeWindow}/${lengthSelect}`);
-            setDataList([...dataList,riskData.data]);
+            const riskData = { name: null, data: null };
+            riskData.name = `${timeWindow}&${lengthSelect}`;
+            const temp = await get(
+                `api/risk2/${'경부'}/${timeWindow}/${lengthSelect}`
+            );
+            riskData.data = temp.data;
+            setDataList([...dataList, riskData]);
             setOptionList([...optionList, `${timeWindow}&${lengthSelect}`]);
         } else {
             alert('이미 존재하는 옵션입니다.');
@@ -57,25 +63,27 @@ const FrontPage = () => {
     const delete_option_handler = (e) => {
         e.preventDefault();
         const value = e.target.parentElement.children[0].innerText;
-        let idx = optionList.findIndex((e) => e === value);
-        if (idx === -1) {
+        let idx_info = optionList.findIndex((e) => e === value);
+        let idx_data = dataList.findIndex((e) => e.name === value);
+        if (idx_info === -1) {
             alert('에러');
         } else {
             setOptionList(
                 optionList
-                    .slice(0, idx)
-                    .concat(optionList.slice(idx + 1, optionList.length))
+                    .slice(0, idx_info)
+                    .concat(optionList.slice(idx_info + 1, optionList.length))
             );
         }
-    };
 
-    const showResult = () => {
-        return (
-            <div>
-                <span>{timeWindow}</span>
-                <span>{lengthSelect}</span>
-            </div>
-        );
+        if (idx_data === -1) {
+            alert('에러');
+        } else {
+            setDataList(
+                dataList
+                    .slice(0, idx_data)
+                    .concat(dataList.slice(idx_data + 1, dataList.length))
+            );
+        }
     };
 
     const showOptionList = optionList.map((item, idx) => {
@@ -108,10 +116,7 @@ const FrontPage = () => {
             </Button>
             <div>{showOptionList}</div>
             <hr />
-            {showResult()}
-            <div>ㅇㅅㅇ</div>
-            <div></div>
-
+            <RoadRiskPage dataList={dataList} />
         </Styles>
     );
 };
