@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server-start":"node server/src/index"
+    "server":"node server/src/index",
+    "client":"npm start --prefix client",
+    "start":"concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",

@@ -13,16 +13,14 @@ const Styles = styled.div`
 `;
 
 const RiskInfo = ({ data }) => {
-    console.log(data);
     return (
         <Styles style={{ display: 'inline-block' }}>
             <div>
-                <span> {data.timeWindow}시간 범위 & </span>
-                <span>{data.length==="true"?(
+                <h3> {data.timeWindow}시간 범위 & {data.length==="true"?(
                     "도로 길이 포함"
                 ):(
                     "도로 길이 제외"
-                )}</span>
+                )}</h3>
             </div>
             <div class="data-box">
                 

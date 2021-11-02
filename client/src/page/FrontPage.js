@@ -12,16 +12,27 @@ const Styles = styled.div`
     }
     .option {
         border: 1px grey solid;
-        padding: 1px;
+        padding: 5px;
         margin-top: 10px;
         margin: 5px;
+        border-radius: 30px;
     }
     .delete {
-        border: 1px black solid;
+        border: 1px grey solid;
         border-radius: 50%;
+        margin: 5px;
+        padding: 2px;
+        display: inline-block;
     }
     .delete:hover {
-        background-color: red;
+        background-color: grey;
+    }
+    .optionList {
+        border: 1px grey solid;
+        padding: 20px;
+        display: inline-block;
+        margin-left: 100px;
+        border-radius: 50px;
     }
 `;
 
@@ -90,15 +101,15 @@ const FrontPage = () => {
         return (
             <span key={idx} class="option">
                 <span>{item}</span>
-                <span class="delete" onClick={delete_option_handler}>
+                <div class="delete" onClick={delete_option_handler}>
                     {' '}
-                    X{' '}
-                </span>
+                    삭제{' '}
+                </div>
             </span>
         );
     });
     return (
-        <Styles>
+        <Styles style={{ marginLeft: '5%', marginRight: '5%' }}>
             <ChooseTimeWindow
                 class="optionSelector"
                 handleTimeWindow={handleTimeWindow}
@@ -114,7 +125,8 @@ const FrontPage = () => {
             >
                 옵션추가
             </Button>
-            <div>{showOptionList}</div>
+            <hr />
+            {showOptionList}
             <hr />
             <RoadRiskPage dataList={dataList} />
         </Styles>
