@@ -2,8 +2,11 @@
 컴퓨터종합설계2
 
 ## 프로토타입
-# Front-Back 구현
-next : 분석 옵션 추가 & 신뢰도
+
+next : 분석 옵션 추가 & 신뢰도? & 상관관계 시각화
+
+#  Service 부분 구현
+react app & express server
 
 http://13.124.114.34/
 
