@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
 import ChooseRoadLength from './option/ChooseRoadLength';
 import ChooseTimeWindow from './option/ChooseTimeWindow';
-import RoadRiskPage from './RoadRiskPage';
+import RoadRiskPage from './TotalRoadRiskPage';
 
 import styled from 'styled-components';
 import { get } from 'axios';

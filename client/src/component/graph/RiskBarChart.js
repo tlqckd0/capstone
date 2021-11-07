@@ -11,10 +11,10 @@ import {
 const RiskBarChart = ({ roadData }) => {
     //RISK 값에 따라서 초록색 ~ 빨간색.
     return (
-        <div>
+        <div  style={{display:'inline-block'}}> 
             <BarChart
                 width={750}
-                height={400}
+                height={600}
                 data={roadData}
 
             >

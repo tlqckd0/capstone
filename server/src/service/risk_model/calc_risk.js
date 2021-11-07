@@ -68,15 +68,15 @@ const calc_risk = async (
     return new Promise((resolve, reject) => {
         //1. 절편
         let value = coefficient.intercept;
-        console.log('1. 절편 : ',value);
+        //console.log('1. 절편 : ',value);
 
         //2. time 자르기
         value += coefficient.time[get_time_window(timeWindow, current)];
-        console.log('2. 시간 : ',value);
+        //console.log('2. 시간 : ',value);
 
         //3. 요일
         value += coefficient.day[day];
-        console.log('3. 요일 : ',value);
+        //console.log('3. 요일 : ',value);
 
         //4. 강우
         if (rain) {
@@ -84,22 +84,22 @@ const calc_risk = async (
         } else {
             value += coefficient.weather.clear;
         }
-        console.log('4. 날씨(비) : ',value);
+        //console.log('4. 날씨(비) : ',value);
 
         //5. 현재 통행량?(랜덤으로)
         value += getTraffic(timeWindow, current) * coefficient.traffic;
-        console.log('5. 통행량 : ',value);
+        //console.log('5. 통행량 : ',value);
         let total = 0;
         const ret = road_info.map((item)=>{
             const riskValue = value + item.length * coefficient.length;
 
             total += riskValue;
-            console.log(item.name, riskValue);
+            //console.log(item.name, riskValue);
             item.risk = riskValue.toFixed(3);
             return item;
         })
 
-        console.log('7 total : ',total);
+        //console.log('7 total : ',total);
         resolve(ret);
     });
 };
