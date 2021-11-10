@@ -52,7 +52,7 @@ function getTraffic(timeWindow, current) {
         }
     }
     ret = Math.floor(ret);
-    console.log('현재 통행량 : ',ret);
+    console.log('현재 통행량 : ', ret);
     return ret;
 }
 
@@ -90,14 +90,13 @@ const calc_risk = async (
         value += getTraffic(timeWindow, current) * coefficient.traffic;
         //console.log('5. 통행량 : ',value);
         let total = 0;
-        const ret = road_info.map((item)=>{
-            const riskValue = value + item.length * coefficient.length;
-
-            total += riskValue;
+        const ret = road_info.map((item) => {
+            let riskValue = value + item.length * coefficient.length;
+            riskValue = riskValue < 0 ? 0 : riskValue;
             //console.log(item.name, riskValue);
             item.risk = riskValue.toFixed(3);
             return item;
-        })
+        });
 
         //console.log('7 total : ',total);
         resolve(ret);

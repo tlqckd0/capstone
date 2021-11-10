@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Styles = styled.div`
     .header{
         height :100px;
-        background-color:grey;
+        background-color:black;
         color:white;
         padding-top : 50px;
         padding-left: 100px;
@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <Styles>
             <div className='header'>
-                <h1>교통사고 예측 시스템 v2</h1>
+                <h1>교통사고 예측 시스템 v3</h1>
             </div>
         </Styles>
     );

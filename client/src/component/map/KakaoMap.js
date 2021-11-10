@@ -24,10 +24,6 @@ const roadLine = (from, to) => {
 
 const KakaoMap = ({ roadData }) => {
     useEffect(() => {
-        console.log(roadData);
-        // const linePath = roadData.map(road=>{
-        //     return new kakao.maps.LatLng(road.location[0],road.location[1]);
-        // })
         const container = document.getElementById('map');
         const options = {
             center: new kakao.maps.LatLng(
@@ -38,13 +34,6 @@ const KakaoMap = ({ roadData }) => {
         };
         var map = new kakao.maps.Map(container, options);
         map.setZoomable(true);
-        // var polyline = new kakao.maps.Polyline({
-        //     path: linePath, // 선을 구성하는 좌표배열 입니다
-        //     strokeWeight: 10, // 선의 두께 입니다
-        //     strokeColor: '#FFAAAA', // 선의 색깔입니다
-        //     strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-        //     strokeStyle: 'solid' // 선의 스타일입니다
-        // });
         for (let i = 0; i < roadData.length - 1; i++) {
             const polyline = roadLine(roadData[i], roadData[i + 1]);
             polyline.setMap(map);

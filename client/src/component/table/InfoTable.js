@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import styled from 'styled-components';
 const Styles = styled.div`
-    padding: 1rem;
-
+    height: 700px;
+    width:300px;
+    overflow: scroll;
     table {
         border-spacing: 0;
         border: 1px solid black;
@@ -29,24 +30,21 @@ const Styles = styled.div`
         }
     }
 `;
-
 function back_color(num) {
     const value = Math.abs(num * 1);
-
     let ret = '';
-    let redCode = Math.floor(value * 255).toString(16);
-   // let greenCode = Math.floor(255 - value * 255).toString(16);
-    //(greenCode.length === 1 ? '0' + greenCode : greenCode) +
-    ret =
-        '#' +
-        (redCode.length === 1 ? '0' + redCode : redCode) +
-        'aaaa';
+    if(value < 0.5) ret = '#40e0d0';
+
+    if(value >=0.5 && value < 1.0){
+        ret = '#ff8c00';
+    }
+
+    if(value >= 1.0) ret = '#ff0080';
+
     return ret;
 }
-
 const InfoTable = ({ roadData }) => {
     const data = useMemo(() => roadData, [roadData]);
-
     const columns = useMemo(
         () => [
             {
@@ -64,7 +62,7 @@ const InfoTable = ({ roadData }) => {
         ],
         []
     );
-
+        console.log(columns);
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
         useTable({
             columns,

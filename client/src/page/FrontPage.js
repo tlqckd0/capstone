@@ -1,11 +1,15 @@
-import { Button } from '@material-ui/core';
+import { Button, Paper, Box } from '@material-ui/core';
 import React, { useState } from 'react';
 import ChooseRoadLength from './option/ChooseRoadLength';
 import ChooseTimeWindow from './option/ChooseTimeWindow';
-import RoadRiskPage from './TotalRoadRiskPage';
+//import RoadRiskPage from './TotalRoadRiskPage';
 
 import styled from 'styled-components';
 import { get } from 'axios';
+import KakaoMap2 from '../component/map/KakaoMap2';
+import InfoTable from '../component/table/InfoTable';
+import MaterialTable from '../component/table/MaterialTable';
+
 const Styles = styled.div`
     .optionSelector {
         display: block;
@@ -37,11 +41,11 @@ const Styles = styled.div`
 `;
 
 const FrontPage = () => {
-    const [optionList, setOptionList] = useState([]);
     const [timeWindow, setTimeWindow] = useState(12);
     const [lengthSelect, setLengthSelect] = useState('true');
-    const [dataList, setDataList] = useState([]);
-
+    const [roadData, setRoadData] = useState({});
+    const [roadRisk, setroadRisk] = useState([]);
+    const [init, setInit] = useState(false);
     const handleTimeWindow = (e) => {
         e.preventDefault();
         setTimeWindow(e.target.value);
@@ -54,62 +58,19 @@ const FrontPage = () => {
 
     const add_option_handler = async (e) => {
         e.preventDefault();
-        let idx = optionList.findIndex(
-            (e) => e === `${timeWindow}&${lengthSelect}`
+        const riskData = { name: null, data: null };
+        riskData.name = `${timeWindow}&${lengthSelect}`;
+        const temp = await get(
+            `api/risk2/${'경부'}/${timeWindow}/${lengthSelect}`
         );
-
-        if (idx === -1) {
-            const riskData = { name: null, data: null };
-            riskData.name = `${timeWindow}&${lengthSelect}`;
-            const temp = await get(
-                `api/risk2/${'경부'}/${timeWindow}/${lengthSelect}`
-            );
-            riskData.data = temp.data;
-            setDataList([...dataList, riskData]);
-            setOptionList([...optionList, `${timeWindow}&${lengthSelect}`]);
-        } else {
-            alert('이미 존재하는 옵션입니다.');
-        }
-    };
-    const delete_option_handler = (e) => {
-        e.preventDefault();
-        const value = e.target.parentElement.children[0].innerText;
-        let idx_info = optionList.findIndex((e) => e === value);
-        let idx_data = dataList.findIndex((e) => e.name === value);
-        if (idx_info === -1) {
-            alert('에러');
-        } else {
-            setOptionList(
-                optionList
-                    .slice(0, idx_info)
-                    .concat(optionList.slice(idx_info + 1, optionList.length))
-            );
-        }
-
-        if (idx_data === -1) {
-            alert('에러');
-        } else {
-            setDataList(
-                dataList
-                    .slice(0, idx_data)
-                    .concat(dataList.slice(idx_data + 1, dataList.length))
-            );
-        }
+        setInit(true);
+        riskData.data = temp.data;
+        setroadRisk(riskData.data.road);
+        setRoadData(riskData.data);
     };
 
-    const showOptionList = optionList.map((item, idx) => {
-        return (
-            <span key={idx} class="option">
-                <span>{item}</span>
-                <div class="delete" onClick={delete_option_handler}>
-                    {' '}
-                    삭제{' '}
-                </div>
-            </span>
-        );
-    });
     return (
-        <Styles style={{ marginLeft: '5%', marginRight: '5%' }}>
+        <Styles style={{ marginLeft: '50px', marginRight: '50px' }}>
             <ChooseTimeWindow
                 class="optionSelector"
                 handleTimeWindow={handleTimeWindow}
@@ -123,12 +84,47 @@ const FrontPage = () => {
                 color="primary"
                 onClick={add_option_handler}
             >
-                옵션추가
+                옵션선택
             </Button>
+            <hr/>
+            {!init ? (
+                <h3 >
+                    옵션을 선택해 주세요
+                </h3>
+            ) : (
+                <h3>
+                    {`시간간격 : ${timeWindow} , 도로길이 선택 ${lengthSelect}`}
+                </h3>
+            )}
+            <h4>
+                위험도(EPDO) = 12 × 사망사고 + 3 × 부상사고+ 물피사고
+            </h4>
             <hr />
-            {showOptionList}
-            <hr />
-            <RoadRiskPage dataList={dataList} />
+            <div>
+                <KakaoMap2 roadData={roadData} />
+                {!init ? (
+                    <Box
+                        style={{
+                            display: 'inline-block',
+                            height: '700px',
+                            width: '300px',
+                        }}
+                    >
+                        <Paper
+                            color="primary"
+                            variant="outlined"
+                            style={{
+                                display: 'inline-block',
+                                height: '700px',
+                                width: '300px',
+                            }}
+                        />
+                    </Box>
+                ) : (
+                    // <InfoTable roadData={roadRisk} />
+                    <MaterialTable roadData={roadRisk} />
+                )}
+            </div>
         </Styles>
     );
 };

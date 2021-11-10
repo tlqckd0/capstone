@@ -1,12 +1,15 @@
 import React from 'react';
-import KakaoMap from './component/map/KakaoMap';
-import Header from './header/Header';
+import Footer from './fragment/Footer';
+import Header from './fragment/Header';
 import FrontPage from './page/FrontPage'
+
 function App() {
   return (
-    <div className="App">
+    <div 
+    className="App">
       <Header/>
       <FrontPage/>
+      <Footer/>
     </div>
   );
 }
