@@ -10,4 +10,4 @@ react app & express server
 
 http://13.124.114.34/
 
-![222](https://user-images.githubusercontent.com/47955803/139679381-f476985b-115a-4642-8cc5-784b47852d3d.gif)
+![1](https://user-images.githubusercontent.com/47955803/141142567-9c2621f7-5902-4636-aa52-5a321cc6c70f.gif)
