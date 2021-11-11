@@ -14,7 +14,7 @@ const Styles = styled.div`
         display :inline-block;
     }
 `;
-const ChooseRoadLength = ({ handleRoadSelect }) => {
+const ChooseRoadLength = ({ handleRoadOption }) => {
     return (
         <Styles>
             <FormControl
@@ -27,7 +27,7 @@ const ChooseRoadLength = ({ handleRoadSelect }) => {
                     aria-label="road-length"
                     defaultValue="true"
                     name="radio-buttons-group"
-                    onChange={handleRoadSelect}
+                    onChange={handleRoadOption}
                 >
                     <FormControlLabel
                         value="true"

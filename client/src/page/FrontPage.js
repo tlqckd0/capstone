@@ -7,7 +7,6 @@ import ChooseTimeWindow from './option/ChooseTimeWindow';
 import styled from 'styled-components';
 import { get } from 'axios';
 import KakaoMap2 from '../component/map/KakaoMap2';
-import InfoTable from '../component/table/InfoTable';
 import MaterialTable from '../component/table/MaterialTable';
 
 const Styles = styled.div`
@@ -46,12 +45,15 @@ const FrontPage = () => {
     const [roadData, setRoadData] = useState({});
     const [roadRisk, setroadRisk] = useState([]);
     const [init, setInit] = useState(false);
+    const [selectRoadIdx, setSelectRoadIdx] = useState([0]);
+
+
     const handleTimeWindow = (e) => {
         e.preventDefault();
         setTimeWindow(e.target.value);
     };
 
-    const handleRoadSelect = (e) => {
+    const handleRoadOption = (e) => {
         e.preventDefault();
         setLengthSelect(e.target.value);
     };
@@ -69,6 +71,13 @@ const FrontPage = () => {
         setRoadData(riskData.data);
     };
 
+    const handleSelectRoadIdx = (e, value)=>{
+        e.preventDefault();
+        setSelectRoadIdx(value);
+    }
+
+
+
     return (
         <Styles style={{ marginLeft: '50px', marginRight: '50px' }}>
             <ChooseTimeWindow
@@ -77,7 +86,7 @@ const FrontPage = () => {
             />
             <ChooseRoadLength
                 class="optionSelector"
-                handleRoadSelect={handleRoadSelect}
+                handleRoadOption={handleRoadOption}
             />
             <Button
                 variant="contained"
@@ -92,16 +101,23 @@ const FrontPage = () => {
                     옵션을 선택해 주세요
                 </h3>
             ) : (
+                <div>
                 <h3>
-                    {`시간간격 : ${timeWindow} , 도로길이 선택 ${lengthSelect}`}
+                ▶ {`시간간격 : ${timeWindow} , 도로길이 선택 ${lengthSelect}`}
                 </h3>
+                <h3>
+                    ▶ 표에서 도로이름을 클릭하시면 이동합니다.
+                </h3>
+                </div>
+
             )}
-            <h4>
-                위험도(EPDO) = 12 × 사망사고 + 3 × 부상사고+ 물피사고
-            </h4>
+            <hr/>
+            <h5>
+                ※ 위험도(EPDO) = 12 × 사망사고 + 3 × 부상사고+ 물피사고
+            </h5>
             <hr />
             <div>
-                <KakaoMap2 roadData={roadData} />
+                <KakaoMap2 roadData={roadData} selectRoadIdx={selectRoadIdx}/>
                 {!init ? (
                     <Box
                         style={{
@@ -122,7 +138,7 @@ const FrontPage = () => {
                     </Box>
                 ) : (
                     // <InfoTable roadData={roadRisk} />
-                    <MaterialTable roadData={roadRisk} />
+                    <MaterialTable roadData={roadRisk} handleSelectRoadIdx={handleSelectRoadIdx} />
                 )}
             </div>
         </Styles>

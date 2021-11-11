@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const MaterialTable = ({ roadData }) => {
+const MaterialTable = ({ roadData,handleSelectRoadIdx }) => {
     return (
         <TableContainer
             style={{
@@ -24,12 +24,19 @@ const MaterialTable = ({ roadData }) => {
                     <TableRow>
                         <TableCell>도로이름</TableCell>
                         <TableCell align="right">도로 길이(km)</TableCell>
-                        <TableCell align="right">위험도</TableCell>
+                        <TableCell align="right">위험도(EPDO)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {roadData.map((row) => (
+                    {roadData.map((row,idx) => (
                         <TableRow
+                        style={{
+                            "&:hover":"grey"
+                        }}
+                            onClick = {(e)=>{
+                                handleSelectRoadIdx(e,idx);
+                            }}
+                            hover={true}
                             key={row.name}
                             sx={{
                                 '&:last-child td, &:last-child th': {

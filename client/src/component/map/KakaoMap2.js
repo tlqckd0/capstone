@@ -36,23 +36,22 @@ const roadLine = (from, to) => {
     return ret;
 };
 
-const KakaoMap2 = ({ roadData }) => {
+const KakaoMap2 = ({ roadData ,selectRoadIdx}) => {
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
             center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3,
+            level: 5,
         };
         var map = new kakao.maps.Map(container, options);
         map.setZoomable(true);
         if (roadData && roadData.road) {
-            console.log(roadData);
             const options = {
                 center: new kakao.maps.LatLng(
-                    roadData.road[0].location[0],
-                    roadData.road[0].location[1]
+                    roadData.road[selectRoadIdx].location[0],
+                    roadData.road[selectRoadIdx].location[1]
                 ),
-                level: 3,
+                level: 5,
             };
             map = new kakao.maps.Map(container, options);
             for (let i = 0; i < roadData.road.length - 1; i++) {
@@ -63,7 +62,7 @@ const KakaoMap2 = ({ roadData }) => {
                 polyline.setMap(map);
             }
         }
-    }, [roadData]);
+    }, [roadData,selectRoadIdx]);
     return (
         <div
             style={{
