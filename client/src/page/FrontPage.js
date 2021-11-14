@@ -88,6 +88,7 @@ const FrontPage = () => {
                 class="optionSelector"
                 handleRoadOption={handleRoadOption}
             />
+            <br/>
             <Button
                 variant="contained"
                 color="primary"
