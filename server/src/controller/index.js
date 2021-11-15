@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const {roadRiskService,roadRiskService2} = require('../service/roadRiskService');
+const { roadRiskService } = require('../service/roadRiskService');
+const { roadCorrelation } = require('../service/roadCorrelation');
 
-
-router.get('/risk1/:road_name',async(req,res)=>{
-    const {road_name} = req.params;
-    const road_risk_weather = await roadRiskService(road_name);
-
-    res.json(road_risk_weather);
-})
-
-router.get('/risk2/:road_name/:timeWindow/:length',async(req,res)=>{
-    const {road_name,timeWindow, length} = req.params;
-    console.log(road_name,timeWindow, length);
-    const road_risk_weather = await roadRiskService(road_name,timeWindow,length);
+router.get('/risk/:timeWindow/:length', async (req, res) => {
+    const { timeWindow, length } = req.params;
+    console.log(timeWindow, length);
+    const road_risk_weather = await roadRiskService(timeWindow, length);
 
     res.json(road_risk_weather);
-})
+});
+
+router.get('/correlation', async (req, res) => {
+    const road_correlation = await roadCorrelation();
+    console.log('상관관계 조회');
+    res.json(road_correlation);
+});
 
 module.exports = router;

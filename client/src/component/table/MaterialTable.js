@@ -23,16 +23,12 @@ const MaterialTable = ({ roadData,handleSelectRoadIdx }) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>도로이름</TableCell>
-                        <TableCell align="right">도로 길이(km)</TableCell>
                         <TableCell align="right">위험도(EPDO)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {roadData.map((row,idx) => (
                         <TableRow
-                        style={{
-                            "&:hover":"grey"
-                        }}
                             onClick = {(e)=>{
                                 handleSelectRoadIdx(e,idx);
                             }}
@@ -47,7 +43,6 @@ const MaterialTable = ({ roadData,handleSelectRoadIdx }) => {
                             <TableCell component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell align="right">{row.length}</TableCell>
                             <TableCell align="right">{row.risk}</TableCell>
                         </TableRow>
                     ))}
