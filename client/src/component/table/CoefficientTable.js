@@ -8,8 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const CoefficientTable = ({ coefficient }) => {
-    console.log(coefficient);
-
     return (
         <TableContainer
             style={{

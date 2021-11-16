@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <Styles>
             <div className='header'>
-                <h1>교통사고 예측 시스템 v3</h1>
+                <h1>교통사고 예측 시스템</h1>
             </div>
         </Styles>
     );
