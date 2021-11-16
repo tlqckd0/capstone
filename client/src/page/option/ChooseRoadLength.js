@@ -22,12 +22,12 @@ const ChooseRoadLength = ({ handleRoadOption }) => {
                 <FormControlLabel
                     value="true"
                     control={<Radio />}
-                    label="길이정보 사용"
+                    label="도로 정보 사용"
                 />
                 <FormControlLabel
                     value="false"
                     control={<Radio />}
-                    label="구간정보 사용"
+                    label="구간 통계 사용"
                 />
             </RadioGroup>
         </FormControl>

@@ -3,26 +3,27 @@ const weather_API = require('../API/weather_API');
 const path = require('path');
 const calc_risk = require('./risk_model/calc_risk');
 
-function coef_fileName(use_length, timeWindow) {
-    let fileName = '';
-    if (use_length === 'true') {
-        fileName += 'include_';
-    } else {
-        fileName += 'exclude_';
-    }
-    fileName += timeWindow;
+const {coef_fileName,road_fileName,get_time_window} = require('./func');
+// function coef_fileName(use_length, timeWindow) {
+//     let fileName = '';
+//     if (use_length === 'true') {
+//         fileName += 'length_';
+//     } else {
+//         fileName += 'range_';
+//     }
+//     fileName += timeWindow;
 
-    return fileName;
-}
+//     return fileName;
+// }
 
-function road_fileName(use_length){
-    if(use_length == 'true'){
-        return 'length_road';
-    }else{
-        return 'range_road';
-    }
+// function road_fileName(use_length){
+//     if(use_length == 'true'){
+//         return 'length_road';
+//     }else{
+//         return 'range_road';
+//     }
 
-}
+// }
 
 const roadRiskService = async (timeWindow, use_length) => {
     const ret = { weather: null, road: null };
@@ -63,9 +64,18 @@ const roadRiskService = async (timeWindow, use_length) => {
         day,
         coefficient
     );
+
+    coefficient.time = coefficient.time[get_time_window(timeWindow, hour)];
+    coefficient.day = coefficient.day[day];
+    if (rain) {
+        coefficient.weather = coefficient.weather.rain;
+    } else {
+        coefficient.weather = coefficient.weather.clear;
+    }
     ret.weather = weather.data.weather;
     ret.timeWindow = timeWindow;
     ret.use_length = use_length;
+    ret.coefficient = coefficient
     return ret;
 };
 

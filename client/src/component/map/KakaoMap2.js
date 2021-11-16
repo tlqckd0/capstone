@@ -26,10 +26,10 @@ const roadLine = (from, to) => {
         ];
         ret = new kakao.maps.Polyline({
             path,
-            strokeWeight: 10, // 선의 두께 입니다
-            strokeColor: back_color(from.risk), // 선의 색깔입니다
-            strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-            strokeStyle: 'solid', // 선의 스타일입니다
+            strokeWeight: 10, 
+            strokeColor: back_color(from.risk), 
+            strokeOpacity: 1, 
+            strokeStyle: 'solid', 
         });
         return ret;
     }

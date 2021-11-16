@@ -9,6 +9,8 @@ import { get } from 'axios';
 import KakaoMap2 from '../component/map/KakaoMap2';
 import MaterialTable from '../component/table/MaterialTable';
 import RelationTable from '../component/table/RelatiohTable';
+import SelectedInfo from './info/SelectedInfo';
+import OptionSelector from './option/OptionSelector';
 
 const Styles = styled.div`
     .optionSelector {
@@ -50,6 +52,7 @@ const FrontPage = () => {
 
     const [correlation, setCorrelation] = useState(false);
     const [correlationData, setCorrelationData] = useState(null);
+    const [coefficient, setCoefficient] = useState([]);
 
     const handleTimeWindow = (e) => {
         e.preventDefault();
@@ -75,26 +78,25 @@ const FrontPage = () => {
         }
     };
 
+
+
     const add_option_handler = async (e) => {
         e.preventDefault();
-
-        const riskData = { name: null, data: null };
-        riskData.name = `${timeWindow}&${useLengthSelect}`;
         const getData = await get(`api/risk/${timeWindow}/${useLengthSelect}`);
         setInit(true);
-        riskData.data = getData.data;
-        setRoadRiskData(riskData.data.road);
-        setRoadData(riskData.data);
+        //데이터 담기(이거 어떻게 분리할까?)
+
+        setCoefficient(Object.keys(getData.data.coefficient).map((keyName) => {
+            return { name: keyName, value: getData.data.coefficient[keyName] };
+        }));
+        setRoadRiskData(getData.data.road);
+        setRoadData(getData.data);
     };
 
     return (
         <Styles style={{ marginLeft: '50px', marginRight: '50px' }}>
-            <ChooseTimeWindow
-                class="optionSelector"
+            <OptionSelector
                 handleTimeWindow={handleTimeWindow}
-            />
-            <ChooseRoadLength
-                class="optionSelector"
                 handleRoadOption={handleRoadOption}
             />
             <br />
@@ -123,22 +125,16 @@ const FrontPage = () => {
             {!init ? (
                 <h3>옵션을 선택해 주세요</h3>
             ) : (
-                <div>
-                    <h3>
-                        ▶{' '}
-                        {`시간간격 : ${timeWindow} 시간 & ${
-                            useLengthSelect === 'true'
-                                ? '도로 길이정보 사용'
-                                : '도로 구간정보 사용'
-                        }`}
-                    </h3>
-                    <h3>▶ 표에서 도로이름을 클릭하시면 이동합니다.</h3>
-                </div>
+                <SelectedInfo
+                coefficient={coefficient}
+                    timeWindow={timeWindow}
+                    useLengthSelect={useLengthSelect}
+                />
             )}
             {correlation === true && correlationData !== null ? (
                 <div>
-                    <hr/>
-                <RelationTable correlationData={correlationData} />
+                    <hr />
+                    <RelationTable correlationData={correlationData} />
                 </div>
             ) : (
                 <div></div>
@@ -146,7 +142,12 @@ const FrontPage = () => {
             <hr />
             <h5>※ 위험도(EPDO) = 12 × 사망사고 + 3 × 부상사고+ 물피사고</h5>
             <hr />
-            <div>
+            <div
+                style={{
+                    width: '1200px',
+                    margin: '10px',
+                }}
+            >
                 <KakaoMap2 roadData={roadData} selectRoadIdx={selectRoadIdx} />
                 {!init ? (
                     <Box
@@ -170,6 +171,7 @@ const FrontPage = () => {
                     // <InfoTable roadData={roadRisk} />
                     <MaterialTable
                         roadData={roadRiskData}
+                        roadData1={roadData}
                         handleSelectRoadIdx={handleSelectRoadIdx}
                     />
                 )}

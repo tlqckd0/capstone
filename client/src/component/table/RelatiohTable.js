@@ -8,9 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Tooltip } from '@mui/material';
 
-
-import { styled } from '@mui/material/styles';
-
 function back_color(num) {
     if (num === 1) return '#FFFFFF';
     if (Math.abs(num) > 0.6) return '#87ceeb';
